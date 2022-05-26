@@ -1,20 +1,41 @@
-// count    ries
+// countries
 var countries=require('./countries.json')
 var states=require('./states.json')
 var cities=require('./cities.json')
 
-var arr=[]
-var counter=0
 for (const country in countries) {
-    for (const state in states) {
-        if (countries[country].id===states[state].country_id) {
-            // arr.push(states[state])
-            counter=counter+1
-        }
-    }
-}
-console.log(counter);
-console.log(arr.length);
+    // console.log(states[country].country_id);
+       var arry1=[];
+       for (const state in states) {
+           var arry2=[]
+               if (countries[country].id===states[state]["country_id"]) {
+                   for (const city in cities) {
+                       if (states[state].id===cities[city]["state_id"]) {
+                           arry2.push(cities[city])
+                       }
+                   }
+                   states[state].all_cities=arry2
+                   arry1.push(states[state])
+                }
+       }
+       countries[country].all_states=arry1
+   }
+const fs = require('fs');
+let data=JSON.stringify(countries);
+fs.writeFileSync('output.json', data);
+
+
+// fs.writeFile("output.json", countries, 'utf8', function (err) {
+//     if (err) {
+//         console.log("An error occured while writing JSON Object to File.");
+//         return console.log(err);
+//     }
+ 
+//     console.log("JSON file has been saved.");
+// });
+// // json_file_maker(countries)
+
+// // console.log(arr.length);
 // fetch("./countries.json")
 //     .then(function (response) {
 //         return response.json();
@@ -41,46 +62,54 @@ console.log(arr.length);
 //                         //    console.log("countries",countries);
 //                         //    console.log("states",states);
 //                         //    console.log("cities",cities);
-//                            console.log('',);
-//                            var arry=[];
-//                            for (const country in states) {
-//                             console.log(states[country].country_id);
-//                             //    for (const state in states) {
-//                             //         //    if (countries[country].id===states[state].country_id) {
-//                             //         //     //    countries[country].states=arry.push(states[state])
-//                             //         //     arry.push(states[state])
-//                             //         //    }
-                                    
-                                  
-//                             //    }
+//                         //    console.log('',);
+                           
+//                            for (const country in countries) {
+//                             // console.log(states[country].country_id);
+//                                var arry1=[];
+//                                for (const state in states) {
+//                                    var arry2=[]
+//                                        if (countries[country].id===states[state]["country_id"]) {
+//                                            for (const city in cities) {
+//                                                if (states[state].id===cities[city]["state_id"]) {
+//                                                    arry2.push(cities[city])
+//                                                }
+//                                            }
+//                                            states[state].all_cities=arry2
+//                                            arry1.push(states[state])
+//                                         }
+//                                }
+//                                countries[country].all_states=arry1
 //                            }
+
 //                         //    console.log(countries,"898989898989"); 
-//                         console.log(arry.length,"array length");
-//                         console.log(arry,"array length");
+//                         // console.log(arry.length,"array length");
+//                         // console.log(arry,"array length");
+//                         json_file_maker(countries)
 //                         })
 
 //                     })
 //             })
 
-// // // States 
-// // fetch("./states.json")
-// //     .then(function (response) {
-// //         return response.json();
+// // States 
+// fetch("./states.json")
+//     .then(function (response) {
+//         return response.json();
         
-// //     })
-// //     .then(function(states){
-// //         console.log("states",states);
-// //     })
+//     })
+//     .then(function(states){
+//         console.log("states",states);
+//     })
 
-// // // Cities
-// // fetch("./cities.json")
-// //     .then(function (response) {
-// //         return response.json();
+// // Cities
+// fetch("./cities.json")
+//     .then(function (response) {
+//         return response.json();
         
-// //     })
-// //     .then(function(cities){
-// //         console.log("cities",cities);
-// //     })
+//     })
+//     .then(function(cities){
+//         console.log("cities",cities);
+//     })
 
 
 
@@ -97,4 +126,5 @@ console.log(arr.length);
 //     var t=document.getElementById("t");
 //     t.append(linkElement)
 //     console.log("success",linkElement);
+//     // console.log(dataUri)
 // }
