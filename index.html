@@ -5,17 +5,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style> 
+        h1{ 
+            color:red; 
+        } 
+        div{ 
+            display: block; 
+            position: absolute; 
+            width: 10px; 
+            height: 10px; 
+            left: calc(50% - 1em); 
+            border-radius: 1em; 
+            transform-origin: 1em 2em; 
+            animation: rotate; 
+            animation-iteration-count: infinite; 
+            animation-duration: 1.6s; 
+        } 
+   
+        @keyframes rotate { 
+              0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); } 
+        } 
+        .d1 { 
+            animation-delay: 0.1s; 
+            background-color: blue; 
+        } 
+        .d2 { 
+            animation-delay: 0.2s; 
+            background-color: red; 
+        } 
+        .d3 { 
+            animation-delay: 0.3s; 
+            background-color: yellow; 
+        } 
+        .d4 { 
+            animation-delay: 0.4s; 
+            background-color: green; 
+        } 
+        .d5 { 
+            animation-delay: 0.5s; 
+            background-color: magenta; 
+        } 
+    </style>
+
 </head>
 <body>
-    <div id="select">
-        <label for="cars">Choose your country:</label>
+    <center id="center_loader">  
+        <h1>please wait ....</h1> 
+        
+            <div class='d1'></div> 
+            <div class='d2'></div> 
+            <div class='d3'></div> 
+            <div class='d4'></div> 
+            <div class='d5'></div> 
+      
+    </center> 
+    
+        <label for="select_countries">Choose your country:</label>
 
 <select id="select_countries">
     
   
 </select>
+<label for="select_states">Choose your states:</label>
+<select id="select_states" disabled>
 
-    </div>
+</select>
+<label for="select_cities">Choose your cities:</label>
+<select id="select_cities" disabled>
+    
+  
+</select>
+
+
+<span id="select_all"><p><b></b></p></span>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <!-- <script type="text/javascript" src="countries.json"></script>
@@ -23,7 +88,7 @@
     <script type="text/javascript" src="cities.json"></script> -->
     <!-- <script type="text/javascript" src="javascript.js"></script> -->
    
-    <script type="text/javascript" src="output.json"></script> -->
-    <script type="text/javascript" src="show_all.js"></script> -->
+    <script type="text/javascript" src="output.json"></script> 
+    <script type="text/javascript" src="show_all.js"></script> 
 </body>
 </html>
