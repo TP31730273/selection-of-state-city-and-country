@@ -54,7 +54,22 @@
       }
 
       function prevPage() {
-        console.log("prew");
+        var arr = [
+          parseInt(
+            document
+              .getElementById("listingTable")
+              .getAttribute("range")
+              .split(",")[0]
+          ),
+          parseInt(
+            document
+              .getElementById("listingTable")
+              .getAttribute("range")
+              .split(",")[1]
+          ),
+        ];
+
+        console.log("prew", arr);
         next_page.removeAttribute("hidden");
         current_page = current_page - 1;
         // console.log(current_page);
@@ -64,7 +79,6 @@
         page_no.innerHTML = current_page;
         // console.log(page_no.innerHTML);
       }
-      console.log(obj_range);
     </script>
   </body>
 </html>
