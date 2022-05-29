@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+  margin: 0 ;
+  padding: 55px;
+}
+
+
+table {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+  top: 40px;
+  left: 30px;
+  
+}
+th, td {
+  padding-left: 57px;
+  padding-right: 120px;
+}
+tr.red th {
+  background: red;
+  color: white;
+}
+tr.green th {
+  background: green;
+  color: white;
+}
+tr.purple th {
+  background: purple;
+  color: white;
+}
+th {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+    </style>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"> -->
+  
+
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="selector">
+        <label for="">How many results you want:</label>
+        <input type="number" id="results">
+        <button onclick="range()">search</button>
+        <button id="all_show">all</button>
+
+    </div>
+
+    <table id="student_table">
+
+    </table>
+    <!-- <table id="table_id">
+        <thead>
+        <tr>
+            <th>Student_id</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Employed</th>
+            <th>marks</th>
+        </tr>
+    </thead>
+
+    </table> -->
+      <!-- <table>
+        <thead>
+          <tr class="red">
+            <th>Student_id</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Employed</th>
+            <th>marks</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <td>Lorem.</td>
+            <td>Ullam.</td>
+            <td>Vel.</td>
+            <td>At.</td>
+            <td>Quis.</td>
+          </tr>
+
+
+
+        </tbody>
+      </table> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> -->
+    <!-- <script type="text/javascript" src="data.json"></script>  -->
+    <script type="text/javascript" src="home.js"></script> 
+</body>
+</body>
+</html>
