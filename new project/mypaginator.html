@@ -1,84 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="listingTable" hidden></div>
-    <a href="javascript:prevPage()" id="btn_prev">Prev</a>
-    <a href="javascript:nextPage()" id="btn_next">Next</a>
-    <br />
-    <br />
-    page: <span id="page_no"></span>
 
-    <script>
-      var current_page = 1;
-      var page_size = 10;
-      var obj_length = 100;
-      var data_div = document.getElementById("listingTable");
-      var obj_range = [0, page_size];
-      var page_offset = Math.ceil(obj_length / page_size);
-      var pre_page = document.getElementById("btn_prev");
-      var next_page = document.getElementById("btn_next");
-      var page_no = document.getElementById("page_no");
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="listingTable" hidden></div>
+  <a href="javascript:prevPage()" id="btn_prev">Prev</a>
+  <br>
+  <br>
+  <a href="javascript:nextPage()" id="btn_next">Next</a>
+  <br />
+  <br />
+  page: <span id="page_no"></span>
+
+  <script>
+    var current_page = 1;
+    var page_size = 13;
+    var obj_length = 100;
+    var data_div = document.getElementById("listingTable");
+    var obj_range = [0, page_size];
+    var page_offset = Math.ceil(obj_length / page_size);
+    var pre_page = document.getElementById("btn_prev");
+    var next_page = document.getElementById("btn_next");
+    var page_no = document.getElementById("page_no");
+
+    function div_range(data_div) {
+      var arr = [parseInt(
+        data_div
+          .getAttribute("range")
+          .split(",")[0]
+      ),
+      parseInt(
+        data_div
+          .getAttribute("range")
+          .split(",")[1]
+      )];
+      return arr;
+
+
+    }
+
+    function curr_page_check(current_page,obj_range) {
+
       if (current_page === 1) {
         pre_page.setAttribute("hidden", "true");
 
         page_no.innerHTML = current_page;
         data_div.setAttribute("range", obj_range);
       }
-      function nextPage() {
-        console.log("next");
-        if (parseInt(page_no.innerHTML) < page_offset) {
-          if (parseInt(page_no.innerHTML) + 1 === page_offset) {
-            console.log("88888888888888");
-            obj_range[0] = obj_range[1];
-            obj_range[1] = obj_length;
-          } else {
-            obj_range[0] = obj_range[1];
-            obj_range[1] = page_size + obj_range[1];
-          }
-        }
-        if (parseInt(page_no.innerHTML) === page_offset - 1) {
-          next_page.setAttribute("hidden", "true");
-        }
-        current_page = current_page + 1;
-        // console.log(current_page);
-        pre_page.removeAttribute("hidden");
-        page_no.innerHTML = current_page;
-        data_div.setAttribute("range", obj_range);
-        // console.log(page_no.innerHTML);
-      }
+    }
 
-      function prevPage() {
-        var arr = [
-          parseInt(
-            document
-              .getElementById("listingTable")
-              .getAttribute("range")
-              .split(",")[0]
-          ),
-          parseInt(
-            document
-              .getElementById("listingTable")
-              .getAttribute("range")
-              .split(",")[1]
-          ),
-        ];
 
-        console.log("prew", arr);
-        next_page.removeAttribute("hidden");
-        current_page = current_page - 1;
-        // console.log(current_page);
-        if (current_page < 1 || current_page === 1) {
-          pre_page.setAttribute("hidden", "true");
+
+    // if (current_page === 1) {
+    //   pre_page.setAttribute("hidden", "true");
+
+    //   page_no.innerHTML = current_page;
+    //   data_div.setAttribute("range", obj_range);
+    // }
+    curr_page_check(current_page,obj_range);
+
+    function nextPage() {
+      console.log("next");
+    curr_page_check(current_page,obj_range);
+
+      if (parseInt(page_no.innerHTML) < page_offset) {
+        if (parseInt(page_no.innerHTML) + 1 === page_offset) {
+          console.log("88888888888888");
+          obj_range[0] = obj_range[1] + 1;
+          obj_range[1] = obj_length;
+        } else {
+          obj_range[0] = obj_range[1] + 1;
+          obj_range[1] = page_size + obj_range[1];
         }
-        page_no.innerHTML = current_page;
-        // console.log(page_no.innerHTML);
       }
-    </script>
-  </body>
+      if (parseInt(page_no.innerHTML) === page_offset - 1) {
+        next_page.setAttribute("hidden", "true");
+      }
+      current_page = current_page + 1;
+      // console.log(current_page);
+      pre_page.removeAttribute("hidden");
+      page_no.innerHTML = current_page;
+      data_div.setAttribute("range", obj_range);
+      // console.log(page_no.innerHTML);
+    }
+
+    function prevPage() {
+      // console.log(current_page);
+      
+      var arr = div_range(data_div);
+      arr[1] = arr[0] - 1;
+      arr[0] = arr[1] - page_size + 1;
+
+      data_div.setAttribute("range", arr)
+      console.log("prew", arr);
+      next_page.removeAttribute("hidden");
+      current_page = current_page - 1;
+      // console.log(current_page);
+      if (current_page < 1 || current_page === 1) {
+        pre_page.setAttribute("hidden", "true");
+      }
+      curr_page_check(current_page=current_page,obj_range);
+      page_no.innerHTML = current_page;
+      // console.log(page_no.innerHTML);
+    }
+  </script>
+</body>
+
 </html>
