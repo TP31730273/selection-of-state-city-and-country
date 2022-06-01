@@ -1,128 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-  margin: 0 ;
-  padding: 55px;
-}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  <style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+
+    body {
+      margin: 0;
+      padding: 55px;
+    }
+
+    .green {
+      color: green;
+    }
+
+    table {
+      text-align: left;
+      position: relative;
+      border-collapse: collapse;
+      top: 40px;
+      left: 30px;
+
+    }
+
+    th,
+    td {
+      padding-left: 57px;
+      padding-right: 120px;
+    }
+
+    tr.red th {
+      background: red;
+      color: white;
+    }
+
+    tr.green th {
+      background: green;
+      color: white;
+    }
+
+    tr.purple th {
+      background: purple;
+      color: white;
+    }
+
+    th {
+      background: white;
+      position: sticky;
+      top: 0;
+      /* Don't forget this, required for the stickiness */
+      box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    }
+
+    button {
+
+      outline: 0;
+      margin: 20px 10px 10px 6px;
+      border-width: 2.7px;
+      font-size: 25px;
+      border-style: solid;
+      font-family: 'PT Sans Narrow', sans-serif;
+      padding: 4px 40px;
+      background-color: white;
+      border-color: #0e83cd;
+      color: #0e83cd;
+      transition: all .3s ease-in;
 
 
-table {
-  text-align: left;
-  position: relative;
-  border-collapse: collapse; 
-  top: 40px;
-  left: 30px;
-  
-}
-th, td {
-  padding-left: 57px;
-  padding-right: 120px;
-}
-tr.red th {
-  background: red;
-  color: white;
-}
-tr.green th {
-  background: green;
-  color: white;
-}
-tr.purple th {
-  background: purple;
-  color: white;
-}
-th {
-  background: white;
-  position: sticky;
-  top: 0; /* Don't forget this, required for the stickiness */
-  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
-}
-button {
+    }
 
-outline: 0;
-margin: 20px  10px 10px 6px;
-border-width:2.7px;
-font-size: 25px;
-border-style: solid;
-font-family: 'PT Sans Narrow', sans-serif;
-padding: 4px 40px;
-background-color: white;
-border-color: #0e83cd;
-color: #0e83cd;
-transition: all .3s ease-in;
+    button:hover {
+      color: white;
+      background-color: #0e83cd;
+      transition: all .3s ease-in;
+    }
+
+    .slideInDown {
+      -webkit-animation-name: slideInDown;
+      animation-name: slideInDown;
+    }
+
+    .fixed-top {
+      background: #fff;
+      box-shadow: 0 7px 12px rgba(0, 0, 0, .02);
+      border-bottom: 1px solid hsla(0, 0%, 92.5%, .6);
+      position: fixed !important;
+    }
+
+    .animated {
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+  </style>
+  <!-- <link rel="stylesheet" href="style.css"> -->
 
 
-}
 
-button:hover {
-color: white;
-background-color: #0e83cd;
-transition: all .3s ease-in;
-}
-.slideInDown {
-  -webkit-animation-name: slideInDown;
-  animation-name: slideInDown;
-}
-.fixed-top {
-  background: #fff;
-  box-shadow: 0 7px 12px rgba(0,0,0,.02);
-  border-bottom: 1px solid hsla(0,0%,92.5%,.6);
-  position: fixed !important;
-}
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-    </style>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"> -->
 
 
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"> -->
-  
 
-
-    <title>Document</title>
+  <title>Document</title>
 </head>
+
 <body>
 
-    <div id="listingTable">
-        <label for="">How many results you want:</label>
-        <input type="number" id="results">
-        <button id="search_obj" onclick="search_click()">search</button>
-        <button id="all_show">all</button>
+  <div id="listingTable">
+    <label for="">How many results you want:</label>
+    <input type="number" value="10" id="results">
+    <!-- <button id="search_obj">search</button> -->
+    <button id="search_obj">search</button>
 
-    </div>
 
-    <table id="student_table">
+  </div>
+  <div id="err"></div>
 
-    </table>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div style="position: fixed;">
-      <button href="#"  id="btn_prev">Prev</button>
-      <button href="#"  id="btn_next">Next</button>
-      
-      page: <span id="page"></span>
-    </div>
+  <table id="student_table">
+    <thead>
+      <tr id="age_tr" class="red">
+        <td>Student_id</td>
+        <td id="age_td">
+          Age <div><i id="assending" class="bi bi-caret-up"></i></div>
+          <div><i id="deceending" class="bi bi-caret-down"></i></div>
+        </td>
+        <td>Grade</td>
+        <td>Employed</td>
+        <td>marks</td>
+      </tr>
+    </thead>
+    <tbody id="tbody">
 
-    
-    
+    </tbody>
+  </table>
+  <br>
+  <div id="operation">
+    <button href="#" id="btn_prev">Prev</button>
+    <button href="#" id="btn_next">Next</button>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    page: <span id="page"></span>
+  </div>
 
-    <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> -->
-    <!-- <script type="text/javascript" src="data.json"></script>  -->
-    <script type="text/javascript" src="home.js"></script> 
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> -->
+  <!-- <script type="text/javascript" src="data.json"></script>  -->
+  <script type="text/javascript" src="home.js"></script>
+  <script>
+    function fill() {
+      $('#assending').removeClass('bi-triangle');
+      $('#assending').addClass('bi-triangle-fill');
+    }
+  </script>
 </body>
 </body>
+
 </html>

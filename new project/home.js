@@ -1,43 +1,151 @@
-fetch("./data.json")
+function insert(array,element,position) {
+  const newArray = [];
+
+  for ( let i = 0; i < array.length; i++) {
+      if(i === position) {
+          newArray.push(element);
+          newArray.push(array[i]);
+          // console.log(array[i]);
+          
+      }else{
+        newArray.push(array[i]);
+      }
+  }
+  return newArray;
+}
+
+function Remove_elm(array, n) {
+  const newArray = [];
+
+  for ( let i = 0; i < array.length; i++) {
+      if(i !== n) {
+          newArray.push(array[i]);
+          
+      }
+  }
+  return newArray;
+}
+
+class sort_by_age {
+  constructor(data) {
+    this.data = data;
+  }
+
+  decending_sorted_data(fixed_pos=-1){
+    if (fixed_pos !=-1) {
+      var poped_elm=[this.data[fixed_pos]].pop();
+      console.log(poped_elm);
+      var newarr=Remove_elm(this.data,fixed_pos)
+      data = newarr.sort((a,b) => {
+        
+        if (a.Age>b.Age) {
+          return -1;
+        }else if (a.Age<b.Age) {    
+          return 1;   
+        }
+      })
+      return insert(data,poped_elm,fixed_pos)
+    }
+    else{
+      var data=this.data;
+      data = data.sort((a,b) => {
+        
+        if (a.Age>b.Age) {
+          return -1;
+        }else if (a.Age<b.Age) {    
+          return 1;   
+        }
+      })
+      return data;
+    }
+     
+  }
+
+  assending_sorted_data(fixed_pos=-1){
+  if (fixed_pos !=-1) {
+    var poped_elm=[this.data[fixed_pos]].pop();
+    
+    var newarr=Remove_elm(this.data,fixed_pos)
+    var data=newarr;
+    data = data.sort((a,b) => {
+      
+      if (a.Age<b.Age) {
+        return -1;
+      }else if (a.Age>b.Age) {    
+        return 1;   
+      }
+    })
+    
+    var updated_arr=insert(data,poped_elm,fixed_pos);
+    // console.log(updated_arr,'00000000000000000000000');
+
+    return updated_arr;
+    
+    
+  }
+  else{
+    
+    var data=this.data;
+    data = data.sort((a,b) => {
+      
+      if (a.Age<b.Age) {
+      
+        return -1;
+      }else if (a.Age>b.Age) {    
+        return 1;   
+      }
+    })
+    return data;
+  }
+
+ }
+    
+  
+}
+
+
+  fetch("./data.json")
+
   .then(function (response) {
     return response.json();
   })
 
   .then(function (element) {
+
+function datatable(records,element) {
+
     $(document).ready(function () {
-      console.log("startload");
+     
       changePage(1);
     });
 
     let table = document.getElementById("student_table");
-  let thead = document.createElement("thead");
-  let tbody = document.createElement("tbody");
+  
+
+  let tbody = document.getElementById("tbody");
   var th_tr = document.createElement("tr");
   th_tr.className = "red";
-  
-    var data = new Object();
+  var data = new Object();
     data = element;
-    for (const key in data[0]) {
-      var td = document.createElement("th");
+
+  tbody.innerHTML='';
+
   
-      td.innerHTML = key;
-      th_tr.append(td);
-    }
-    thead.append(th_tr);
-    table.append(thead, tbody);
+   
+   
+    table.append(tbody);
     var current_page = 1;
     
-    var records_per_page = 200;
-    // if ($('#search_obj').click()) {
-    //   console.log("9387493489");
-    // }
-    
-    function search_click() {
-      console.log("389893448934893489349349");
-      return true;
+    if (records==0){
+      $('#err').text('please give records greater then 0')
+      
+      
+    }else{
+      var records_per_page=records;
     }
-    console.log(records_per_page);
-    var objJson = element;
+
+    var objJson =new Object();
+    objJson=element;
     var btn_next = document.getElementById("btn_next");
     var btn_prev = document.getElementById("btn_prev");
     
@@ -49,14 +157,14 @@ $('#btn_next').on('click',function () {
   nextPage();
 })
     function prevPage() {
-      console.log("prew");
+     
       if (current_page > 1) {
         current_page--;
         changePage(current_page);
       }
     }
     function nextPage() {
-      console.log("next",current_page,numPages());
+     
       if (current_page===numPages()-1) {
         btn_next.style.visibility = "hidden";
         
@@ -101,22 +209,112 @@ $('#btn_next').on('click',function () {
       return Math.ceil(objJson.length / records_per_page);
     }
    
-  });
+}
+
+
+$(document).ready(function () {
+  // document.getElementById('age_td').innerHTML+=`<div><i id="assending" class="bi bi-caret-up" ></i></div>
+  // <div><i id="deceending" class="bi bi-caret-down"></i></div>`
+  
+$('#search_obj').on('click',function() {
+  console.log("searched");
+  $.ajax({url: "/index.html", success: function(result){
+    
+    var value=parseInt($('#results').val());
+    datatable(value,element);
+    var thead=$('#age_tr');
+
+    thead.removeClass('red');
+    thead.addClass('green')
+     
+  
+  }});
+});
+
+$('#assending').on('click',function() {
+ 
+  console.log("7888888888888");
+  $.ajax({url: "/index.html", success: function(result){
+   
+    var value=parseInt($('#results').val());
+    let obj=new sort_by_age(element);
+    var assending_data=obj.assending_sorted_data(fixed_pos=4)
+    console.log(assending_data,"777777777");
+    datatable(value,assending_data);
+    
+  }});
+});
+
+
+$('#deceending').on('click',function() {
+ 
+  console.log("decending");
+  $.ajax({url: "/index.html", success: function(result){
+   
+    var value=parseInt($('#results').val());
+    let obj=new sort_by_age(element);
+    var decending_data=obj.decending_sorted_data()
+    console.log(decending_data,"777777777");
+    datatable(value,decending_data);
+    
+  }});
+});
+ 
+
+});
+
+
+
+
+datatable(parseInt($('#results').val()),element);
+
+});
 
 
 
 
 
-// 
+// // // 
 
-// fetch('http://production.shippingapis.com/ShippingApi.dll?API=RateV4&XML=<RateV4Request USERID="726BEENO7345"> <Revision>2</Revision> <Package ID="1ST"> <Service>FIRST CLASS</Service> <FirstClassMailType>LETTER</FirstClassMailType> <ZipOrigination>44106</ZipOrigination> <ZipDestination>20770</ZipDestination> <Pounds>0</Pounds> <Ounces>3.12345678</Ounces> <Container/><Size>REGULAR</Size> <Machinable>true</Machinable> </Package> <Package ID="2ND"> <Service>PRIORITY MAIL EXPRESS</Service> <ZipOrigination>44106</ZipOrigination> <ZipDestination>20770</ZipDestination> <Pounds>40</Pounds> <Ounces>0</Ounces> <Container>NONRECTANGULAR</Container> <Size>LARGE</Size> <Width>20</Width> <Length>35</Length> <Height>50</Height> <Girth>55</Girth> <Value>1000</Value> <SpecialServices> <SpecialService>1</SpecialService> </SpecialServices> </Package> <Package ID="3RD"> <Service>ALL</Service> <ZipOrigination>90210</ZipOrigination> <ZipDestination>96698</ZipDestination> <Pounds>8</Pounds> <Ounces>32</Ounces> <Container/><Size>REGULAR</Size> <Machinable>true</Machinable> <DropOffTime>23:59</DropOffTime> <ShipDate>2016-03-23</ShipDate> </Package> </RateV4Request>')
+// // // fetch('http://production.shippingapis.com/ShippingApi.dll?API=RateV4&XML=<RateV4Request USERID="726BEENO7345"> <Revision>2</Revision> <Package ID="1ST"> <Service>FIRST CLASS</Service> <FirstClassMailType>LETTER</FirstClassMailType> <ZipOrigination>44106</ZipOrigination> <ZipDestination>20770</ZipDestination> <Pounds>0</Pounds> <Ounces>3.12345678</Ounces> <Container/><Size>REGULAR</Size> <Machinable>true</Machinable> </Package> <Package ID="2ND"> <Service>PRIORITY MAIL EXPRESS</Service> <ZipOrigination>44106</ZipOrigination> <ZipDestination>20770</ZipDestination> <Pounds>40</Pounds> <Ounces>0</Ounces> <Container>NONRECTANGULAR</Container> <Size>LARGE</Size> <Width>20</Width> <Length>35</Length> <Height>50</Height> <Girth>55</Girth> <Value>1000</Value> <SpecialServices> <SpecialService>1</SpecialService> </SpecialServices> </Package> <Package ID="3RD"> <Service>ALL</Service> <ZipOrigination>90210</ZipOrigination> <ZipDestination>96698</ZipDestination> <Pounds>8</Pounds> <Ounces>32</Ounces> <Container/><Size>REGULAR</Size> <Machinable>true</Machinable> <DropOffTime>23:59</DropOffTime> <ShipDate>2016-03-23</ShipDate> </Package> </RateV4Request>')
+// // //     .then((response) => {
+// // //       return response.text();
+// // //     })
+// // //     .then((data) => {
+      
+// // //       var str_data=data.replace('<?xml version="1.0" encoding="UTF-8"?>','');
+     
+      
+// // //     console.log(str_data);
+// // //     })
+
+
+
+
+// // sorting by age
+// fetch('./data.json')
 //     .then((response) => {
 //       return response.text();
 //     })
-//     .then((data) => {
+//     .then((arry) => {
+//       var arr=JSON.parse(arry)
+//       console.log(arr,"888888888888888");
+//       var pos=3;
+//       var poped_elm=[arr[pos]].pop();
+//       console.log(poped_elm);
+//       var newarr=Remove_elm(arr,pos)
+//       // var sorted_arr=newarr.sort();
       
-//       var str_data=data.replace('<?xml version="1.0" encoding="UTF-8"?>','');
-     
-      
-//     console.log(str_data);
+//       // newarr.splice(pos, 0, poped_elm)
+//       console.log(newarr);
 //     })
+
+// var arr=[2,3,4,5,6,7];
+// console.log(insert(arr,1,0));
+
+
+
+
+
+
+
