@@ -109,21 +109,40 @@
   <title>Document</title>
 </head>
 
-<body>
+<body>  
 
   <div id="listingTable">
     <label for="">Result per page:</label>
     <input type="number" value="10" id="results">
     <label for="">Which element you want to see first?:</label>
 
-    <input type="number" id="element">
+    <input type="number" value="0" id="element">
 
     
     <button id="search_obj">Normal data</button>
 
 
   </div>
-  <div id="err"></div>
+  
+  <div class="filter">   
+    <label for="">Filter according to grade:</label> 
+    <span>
+    <input name="employee" type="checkbox" class="checkbox" value="1"/>
+    <label for="employee">1st</label>
+    </span> 
+
+    <span>
+    <input name="employee" type="checkbox" class="checkbox" value="2"/>
+    <label for="employee">2nd</label>
+    </span>    
+
+    <span>
+    <input name="employee" type="checkbox" class="checkbox" value="3"/>
+    <label for="employee">3rd</label>
+    </span>
+<button id="filter_for_grade">FILETR</button>
+</div>
+  
 
   <table id="student_table">
     <thead>
