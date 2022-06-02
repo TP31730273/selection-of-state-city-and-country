@@ -33,10 +33,11 @@ class sort_by_age {
 
   decending_sorted_data(fixed_pos=-1){
     if (fixed_pos !=-1) {
-     
+      
       var poped_elm=[this.data[fixed_pos]].pop();
-      var newarr=Remove_elm(this.data,0)
-      data = newarr.sort((a,b) => {
+      var newarr=Remove_elm(this.data,fixed_pos)
+      var data=newarr;
+      data = data.sort((a,b) => {
         
         if (a.Age>b.Age) {
           return -1;
@@ -44,9 +45,12 @@ class sort_by_age {
           return 1;   
         }
       })
-      return insert(data,poped_elm,fixed_pos)
+      data.unshift(poped_elm);
+      console.log(data,'11111111111111111');
+      return data;
     }
     else{
+      console.log('called decending',fixed_pos);
       var data=this.data;
       data = data.sort((a,b) => {
         
@@ -62,7 +66,9 @@ class sort_by_age {
   }
 
   assending_sorted_data(fixed_pos=-1){
-  if (fixed_pos !=-1) {
+    
+    if (fixed_pos !=-1) {
+    console.log('called assendng');
     var poped_elm=[this.data[fixed_pos]].pop();
     
     var newarr=Remove_elm(this.data,fixed_pos)
@@ -76,10 +82,10 @@ class sort_by_age {
       }
     })
     
-    var updated_arr=insert(data,poped_elm,0);
-    // console.log(updated_arr,'00000000000000000000000');
+    data.unshift(poped_elm);
+    console.log(data,'00000000000000000000000');
 
-    return updated_arr;
+    return data;
     
     
   }
@@ -117,8 +123,8 @@ function datatable(records,element) {
 
 
 let tbody = document.getElementById("tbody");
-var th_tr = document.createElement("tr");
-th_tr.className = "red";
+// var th_tr = document.createElement("tr");
+// th_tr.className = "red";
 var data = new Object();
   data = element;
 
@@ -221,15 +227,18 @@ $(document).ready(function () {
   // <div><i id="deceending" class="bi bi-caret-down"></i></div>`
   
 $('#search_obj').on('click',function() {
-  console.log("searched");
+  $('#deceending').removeClass('bi-caret-down-fill');
+  $('#deceending').addClass('bi-caret-down');
+  $('#assending').removeClass('bi-caret-up-fill');
+  $('#assending').addClass('bi-caret-up');
   $.ajax({url: "/index.html", success: function(result){
     
     var value=parseInt($('#results').val());
     datatable(value,element);
-    var thead=$('#age_tr');
+    // var thead=$('#age_tr');
 
-    thead.removeClass('red');
-    thead.addClass('green')
+    // // thead.removeClass('red');
+    // thead.addClass('green')
      
   
   }});
@@ -237,13 +246,20 @@ $('#search_obj').on('click',function() {
 
 
 $('#assending').on('click',function() {
- 
+  $('#deceending').removeClass('bi-caret-down-fill');
+  $('#deceending').addClass('bi-caret-down');
+  $(this).removeClass('bi-caret-up');
+  $(this).addClass('bi-caret-up-fill');
   console.log("maindata",element);
   $.ajax({url: "/index.html", success: function(result){
     console.log("asssssssssssssssssssssssssssssssssssssssssss");
     var value=parseInt($('#results').val());
     let obj=new sort_by_age(element);
-    var assending_data=obj.assending_sorted_data(fixed_pos=4)
+    console.log(parseInt($('#element').val()))
+    if (parseInt($('#element').val())===NaN) {
+      
+    }
+    var assending_data=obj.assending_sorted_data(4)
     console.log(assending_data,"111111111111111");
     datatable(value,assending_data);
     
@@ -252,13 +268,17 @@ $('#assending').on('click',function() {
 
 
 $('#deceending').on('click',function() {
+  $('#assending').removeClass('bi-caret-up-fill');
+  $('#assending').addClass('bi-caret-up');
+  $(this).removeClass('bi-caret-down');
+  $(this).addClass('bi-caret-down-fill');
   console.log("maindata",element);
  
   $.ajax({url: "/index.html", success: function(result){
     console.log("desssssssssssssssssssssssssssssssssssssssssss");
     var value=parseInt($('#results').val());
     let obj2=new sort_by_age(element);
-    var decending_data=obj2.decending_sorted_data()
+    var decending_data=obj2.decending_sorted_data(4)
     console.log(decending_data,"777777777");
     datatable(value,decending_data);
     

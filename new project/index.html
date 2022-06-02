@@ -112,10 +112,14 @@
 <body>
 
   <div id="listingTable">
-    <label for="">How many results you want:</label>
+    <label for="">Result per page:</label>
     <input type="number" value="10" id="results">
-    <!-- <button id="search_obj">search</button> -->
-    <button id="search_obj">search</button>
+    <label for="">Which element you want to see first?:</label>
+
+    <input type="number" id="element">
+
+    
+    <button id="search_obj">Normal data</button>
 
 
   </div>
@@ -124,14 +128,19 @@
   <table id="student_table">
     <thead>
       <tr id="age_tr" class="red">
-        <td>Student_id</td>
-        <td id="age_td">
+        <th>Student_id</th>
+        <th id="age_td" >
+         <div style="display:flex;" >
           Age <div><i id="assending" class="bi bi-caret-up"></i></div>
           <div><i id="deceending" class="bi bi-caret-down"></i></div>
-        </td>
-        <td>Grade</td>
-        <td>Employed</td>
-        <td>marks</td>
+         </div>
+            
+         
+         
+        </th>
+        <th>Grade</th>
+        <th>Employed</th>
+        <th>marks</th>
       </tr>
     </thead>
     <tbody id="tbody">
