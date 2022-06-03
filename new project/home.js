@@ -292,7 +292,7 @@ class DATATABLE{
                         filter_vals.push(boxes[i].value)      
                       }
                     }
- console.log(filter_vals,'6666666666666')
+
 
                     if (filter_vals.length==0) {
                       console.log("filtered");

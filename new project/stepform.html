@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <form id="regForm">
+       
+    <h1>Register:</h1>
+    <!-- One "tab" for each step in the form: -->
+    <div class="tab">Name:
+      <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>
+      <p><input placeholder="Last name..." oninput="this.className = ''" name="lname"></p>
+    </div>
+    <div class="tab">Contact Info:
+      <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
+      <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
+      <p><textarea type="text" placeholder="Address..." rows="4" cols="172" oninput="this.className = ''" name="Address"></textarea></p>
+    </div>
+    <div class="tab">Birthday:
+      <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
+      <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
+      <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
+    </div>
+    <div class="tab">Login Info:
+      <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
+      <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
+    </div>
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <button type="button" id="prevBtn" >Previous</button>
+        <button type="button" id="nextBtn">Next</button>
+        <button type="button" id="submit"  hidden>Submit</button>
+      </div>
+    </div>
+    <!-- Circles which indicates the steps of the form: -->
+    <div id="steps" style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+  </form>
+  
+
+ 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ </script>
+    <script type="text/javascript" src="stepform.js"></script>
+</body>
+</html>
