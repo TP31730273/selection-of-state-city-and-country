@@ -1,15 +1,15 @@
 
-setTimeout(function () {
-    $('#center_loader').attr("hidden","true");
-},6000)
-console.log("started");
+// setTimeout(function () {
+//     $('#center_loader').attr("hidden","true");
+// },6000)
+// console.log("started");
 
 
 function select_all() {
-    $("#center_loader").removeAttr("hidden")
-    setTimeout(function () {
-        $('#center_loader').attr("hidden","true");
-    },1000)
+    // $("#center_loader").removeAttr("hidden")
+    // setTimeout(function () {
+    //     // $('#center_loader').attr("hidden","true");
+    // },1000)
     $("#select_all").html(`Details: <p>Country:<b>${document.getElementById("select_countries").value }</b></p>
     <p>State:<b>${document.getElementById("select_states").value }</b></p>
     <p>State:<b>${document.getElementById("select_cities").value }</b></p>`)
@@ -19,10 +19,10 @@ function select_all() {
 
 // select cities accortrding to state
 function select_cities(state_id) {
-    $("#center_loader").removeAttr("hidden")
-    setTimeout(function () {
-        $('#center_loader').attr("hidden","true");
-    },1000)
+    // $("#center_loader").removeAttr("hidden")
+    // setTimeout(function () {
+    //     // $('#center_loader').attr("hidden","true");
+    // },1000)
     $('#select_cities').empty()
     $('#select_cities').removeAttr("disabled")
     fetch("./cities.json")
@@ -47,10 +47,10 @@ function select_cities(state_id) {
 
 // select states according to country
 function select_states(country_id) {
-    $("#center_loader").removeAttr("hidden")
-    setTimeout(function () {
-        $('#center_loader').attr("hidden","true");
-    },1000)
+    // $("#center_loader").removeAttr("hidden")
+    // setTimeout(function () {
+    //     $('#center_loader').attr("hidden","true");
+    // },1000)
 
     $('#select_states').empty()
     $('#select_states').removeAttr("disabled")
@@ -77,7 +77,7 @@ function select_states(country_id) {
 
 
 // show all countries
-fetch("./countries.json")
+fetch("../countries.json")
     .then(function (response) {
         return response.json();
 

@@ -172,6 +172,7 @@ class DATATABLE{
       if (current_page===numPages()-1) {
         btn_next.style.visibility = "hidden";
         
+        
       }
       if (current_page < numPages()) {
         current_page++;
