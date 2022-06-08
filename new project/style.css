@@ -1,3 +1,32 @@
+ul{
+  list-style-type: none;
+  display: flex;
+  padding: 10px;
+}
+li{
+  margin: 8px;
+  padding: 10px 24px 10px 24px;
+
+  background-color: #d9d8d8;
+  border-radius: 8px;
+}
+i{
+  margin-left: 8px;
+  margin-top: -12px;
+  position: absolute;
+  background-color:#f1f1f1;
+}
+i:hover{
+  background-color: #a7a4a4;;
+}
+
+.inner_content{
+  border:solid #eceaea;;
+}
+.inner_content:hover{
+  color: white;
+  background-color: #0049e6;
+}
 * {
   box-sizing: border-box;
 }

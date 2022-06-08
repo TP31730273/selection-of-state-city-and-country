@@ -176,7 +176,7 @@ function validation(form,current_page){
 
 //   }
 // })
-console.log(form)
+// console.log(form)
 // console.log(validation(form,current_page));
 
 
