@@ -19,10 +19,7 @@ function select_all() {
 
 // select cities accortrding to state
 function select_cities(state_id) {
-    // $("#center_loader").removeAttr("hidden")
-    // setTimeout(function () {
-    //     // $('#center_loader').attr("hidden","true");
-    // },1000)
+
     $('#select_cities').empty()
     $('#select_cities').removeAttr("disabled")
     fetch("./cities.json")
