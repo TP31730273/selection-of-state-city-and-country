@@ -8,7 +8,6 @@ function add_zero(val) {
 }
 
 var today=new Date();
-console.log(today);
 var today_date=today.getFullYear()+'-'+add_zero(today.getMonth()+1)+'-'+add_zero(today.getDate());
 
 $('input[name="bdate"]').attr("max", '2015-01-01');

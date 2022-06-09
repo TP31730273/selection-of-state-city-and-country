@@ -16,6 +16,8 @@
     <h1>Register:</h1>
     <!-- One "tab" for each step in the form: -->
     <div class="tab">Name:
+<input type="text" value="" id="first_validate" hidden>
+      
       <p><input placeholder="First name..."  name="fname" ></p>
       <p><input placeholder="Last name..."  name="lname" ></p>
       <p><input placeholder="E-mail..."  name="email"></p>
@@ -23,6 +25,8 @@
       <p><input placeholder="Conform Password..."  name="cpword" type="password"></p>
     </div>
     <div class="tab">Personal-info:
+<input type="text" value="" id="second_validate" hidden>
+
       <br>
       <br>
       <label for="gender"> Select you gender: </label>
@@ -41,6 +45,7 @@
       
     </div>
     <div class="tab">Contact Info:
+<input type="text" value="" id="third_validate" hidden>
       
       <p><!-- country codes (ISO 3166) and Dial codes. -->
         <select name="countryCode" id="countryCode">
@@ -279,7 +284,7 @@
 </select>
 
 <span  id="select_all"><p><b></b></p></span>
-      <p><textarea type="text" placeholder="Address..." rows="4" cols="152"  name="Address"></textarea></p>
+      <p><textarea type="text" placeholder="Address..." name="address" rows="4" cols="152"  name="Address"></textarea></p>
 
     </div>
     <div class="tab">Extra Info:
@@ -370,10 +375,14 @@
         
         
       </div>
+      <br>
+      <ul id="multi_place_selector">
+       
+      </ul>
+<input type="text" value="" id="place_list" hidden>
+
     </div>
     
-
-   
     <div style="overflow:auto;">
       <div style="float:right;">
         <button type="button" id="prevBtn" >Previous</button>
@@ -397,27 +406,36 @@
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  </script>
     <script type="text/javascript" src="stepform.js"></script>
-    <script type="text/javascript" src="output1.json"></script> 
     <script type="text/javascript" src="show_all.js"></script> 
     <script type="text/javascript" src="date.js"></script> 
     <script type="text/javascript" src="languages.js"></script> 
     <script type="text/javascript" src="functions.js"></script> 
-    <script>
-//       function close() {
-//     // console.log($('.close').parent(),"!@@3")
-//     console.log("8934534u78937893789789357893535789357893579");
-// }
-        $(document).on('click','.close',function () {
-          // console.log(this.parentNode);
-          $(this).parent().remove();
-          var pre_val=$(this).parent().find('span').text();
-          $('#lang_select').prepend(`<option value="${pre_val}">${pre_val}</option>`)
-          
-          var text_content=document.getElementById('lang_list').textContent;
-          var new_content=text_content.replace(`${pre_val},`,'');
-          document.getElementById('lang_list').textContent=new_content;
-        })
-    </script>
+    <script type="text/javascript" src="functions.js"></script> 
+    <script type="text/javascript" src="validate_and _submit.js"></script> 
+
+<script>
+   $('#nextBtn').attr('disabled','disabled')
+  window.onload=function(){
+    $('input[name="fname"]').val('');
+    $('input[name="lname"]').val('');
+    $('input[name="email"]').val('');
+    $('input[name="pword"]').val('');
+    $('input[name="cpword"]').val('');
+    $('input[name="gender"]').val('');
+    $('input[name="bdate"]').val('');
+    $('input[name="age"]').val('');
+    $('input[name="phone"]').val('');
+    $('#select_countries').val('');
+    $('#select_states').val('');
+    $('#select_cities').val('');
+    $('input[name="address"]').val('');
+    $('#lang_list').val('');
+    $('#search_keyword').val('');
+    $('#place_list').val('');
+
+  }
+</script>
+
    
     
 </body>
