@@ -18,7 +18,7 @@ function select_all() {
 function select_cities(state_id) {
     $('#select_cities').empty()
     $('#select_cities').removeAttr("disabled")
-    fetch("./cities.json")
+    fetch("json/cities.json")
         .then(function (response) {
             return response.json();
 
@@ -44,7 +44,7 @@ function select_states(country_id) {
     $('#select_states').removeAttr("disabled");
   
     $('#select_states').empty()
-    fetch("./states.json")
+    fetch("json/states.json")
         .then(function (response) {
             return response.json();
 
@@ -65,7 +65,7 @@ function select_states(country_id) {
 
 
 // show all countries
-fetch("./countries.json")
+fetch("json/countries.json")
     .then(function (response) {
         return response.json();
 

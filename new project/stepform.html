@@ -7,30 +7,56 @@
     <title>Document</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div id="table" hidden>
+    <table>
+      <thead>
+        <tr>
+          <th>First-name</th>
+          <th>Last-Name</th>
+          <th>Email</th>
+          <th>country-code</th>
+          <th>Phone number</th>
+          <th>Selected country</th>
+          <th>Selected state</th>
+          <th>Selected city</th>
+          
+          <th>address</th>
+          <th>Known language-list</th>
+  
+          <th>Favourite place-list</th>
+  
+        </tr>
+      </thead>
+      <tbody id="data_body">
+        
+      </tbody>
+    </table>
+  </div>
+   
   
   <span id="err" style="color: red;"></span>   
-  <form id="regForm">
+  <form id="regForm" >
     <h1>Register:</h1>
     <!-- One "tab" for each step in the form: -->
     <div class="tab">Name:
-<input type="text" value="" id="first_validate" hidden>
+
       
-      <p><input placeholder="First name..."  name="fname" ></p>
-      <p><input placeholder="Last name..."  name="lname" ></p>
-      <p><input placeholder="E-mail..."  name="email"></p>
+      <p><input placeholder="First name..."  name="fname" type="text" ></p>
+      <p><input placeholder="Last name..."  name="lname" type="text" ></p>
+      <p><input placeholder="E-mail..."  name="email" type="email"></p>
       <p><input placeholder="Password..."  name="pword" type="password"></p>
       <p><input placeholder="Conform Password..."  name="cpword" type="password"></p>
     </div>
     <div class="tab">Personal-info:
-<input type="text" value="" id="second_validate" hidden>
+
 
       <br>
       <br>
       <label for="gender"> Select you gender: </label>
-<select name="gender">
+<select name="gender" id="gender">
 	<option value="male">Male</option>
 	<option value="female">Female</option>
 	<option value="other">other</option>
@@ -45,7 +71,7 @@
       
     </div>
     <div class="tab">Contact Info:
-<input type="text" value="" id="third_validate" hidden>
+
       
       <p><!-- country codes (ISO 3166) and Dial codes. -->
         <select name="countryCode" id="countryCode">
@@ -284,7 +310,7 @@
 </select>
 
 <span  id="select_all"><p><b></b></p></span>
-      <p><textarea type="text" placeholder="Address..." name="address" rows="4" cols="152"  name="Address"></textarea></p>
+      <p><textarea type="text" placeholder="Address..." name="address" rows="4" cols="152"></textarea></p>
 
     </div>
     <div class="tab">Extra Info:
@@ -387,7 +413,8 @@
       <div style="float:right;">
         <button type="button" id="prevBtn" >Previous</button>
         <button type="button" id="nextBtn">Next</button>
-        <button type="button" id="submit"  hidden>Submit</button>
+        <button type="button" id="submit" onclick="submit_form()" hidden>Submit</button>
+        <input type="reset" id="reset_form" value="reset" hidden>
       </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->
@@ -400,40 +427,42 @@
   </form>
   
 
- 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  </script>
-    <script type="text/javascript" src="stepform.js"></script>
-    <script type="text/javascript" src="show_all.js"></script> 
-    <script type="text/javascript" src="date.js"></script> 
-    <script type="text/javascript" src="languages.js"></script> 
-    <script type="text/javascript" src="functions.js"></script> 
-    <script type="text/javascript" src="functions.js"></script> 
-    <script type="text/javascript" src="validate_and _submit.js"></script> 
-
-<script>
-   $('#nextBtn').attr('disabled','disabled')
-  window.onload=function(){
-    $('input[name="fname"]').val('');
-    $('input[name="lname"]').val('');
-    $('input[name="email"]').val('');
-    $('input[name="pword"]').val('');
-    $('input[name="cpword"]').val('');
-    $('input[name="gender"]').val('');
-    $('input[name="bdate"]').val('');
-    $('input[name="age"]').val('');
-    $('input[name="phone"]').val('');
-    $('#select_countries').val('');
-    $('#select_states').val('');
-    $('#select_cities').val('');
-    $('input[name="address"]').val('');
-    $('#lang_list').val('');
-    $('#search_keyword').val('');
-    $('#place_list').val('');
-
+ <script>
+ function live_div() {
+  for (let index = 0; index < document.getElementsByClassName("tab").length; index++) {
+    if (document.getElementsByClassName("tab")[index].hidden!=true) {
+      return index;
+    }
   }
+}
+ </script>
+
+<script type="text/javascript" src="js/validate_and _submit.js"></script> 
+    <script type="text/javascript" src="js/stepform.js"></script>
+    <script type="text/javascript" src="js/show_all.js"></script> 
+    <script type="text/javascript" src="js/date.js"></script> 
+    <script type="text/javascript" src="js/languages.js"></script> 
+<script>
+
+  window.onload=function(){
+    $('#regForm').find('input[type=password]').val('');
+   $('#reset_form').click();
+  }
+  $(document).on('click','.close',function () {
+    // console.log(this.parentNode);
+    $(this).parent().remove();
+    var pre_val=$(this).parent().find('span').text();
+    $('#lang_select').prepend(`<option value="${pre_val}">${pre_val}</option>`)
+    
+    var text_content=document.getElementById('lang_list').textContent;
+    var new_content=text_content.replace(`${pre_val},`,'');
+    document.getElementById('lang_list').textContent=new_content;
+  })
+
 </script>
 
    

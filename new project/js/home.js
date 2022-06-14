@@ -217,7 +217,7 @@ class DATATABLE{
   }
 }
 
-  fetch("./data.json")
+  fetch("json/data.json")
 
     .then(function (response) {
         return response.json();

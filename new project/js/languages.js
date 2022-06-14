@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $("#lang_select").on("change",function () {
         var value=$(this).find(":selected").text();
-
+       
         var li=document.createElement('li');
         var span=document.createElement('span');
         span.innerHTML=value;
@@ -14,14 +14,13 @@ $(document).ready(function () {
         $('#multi_lang_selector').append(li)
         $(this).find(":selected").hide()
         document.getElementById('lang_list').textContent+=value+',';
-        
     })
     
 })
 
 function search_all(params) {
     $('#data_show').empty();
-    fetch("./all_data.json")
+    fetch("json/all_data.json")
     .then(function (response) {
         return response.json();
         
@@ -61,5 +60,7 @@ $(document).on('click','.inner_content',function (params) {
     // i.setAttribute("onclick",'close()')
     li.append(span,i)
     $('#multi_place_selector').append(li);
+    $('#search_keyword').val('');
+    
     document.getElementById('place_list').textContent+=value+',';
 })
