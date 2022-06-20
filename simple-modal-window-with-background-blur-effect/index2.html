@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image cropping tool:</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  />
+    <link rel="stylesheet" href="/css/crop.css">
+    <!-- Latest compiled and minified JavaScript -->
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">
+            Crop-image
+        </h1>
+        <div class="form-group container">
+            <label for="file">Upload image files</label>
+            <input type="file" class="form-control" name="" id="file-input" required accept="image/*">
+        </div>
+        <div class="box-2">
+            <div class="result"></div>
+        </div>
+        <div class="box-2 img-result hide">
+            <img src="" alt="" class="cropped">
+
+        </div>
+        <div class="box">
+            <div class="options hide">
+                <label for="width">width</label>
+                <input type="number" name="" class="img-w" id="" value="300" min="100" max="1200">
+            </div>
+            <button class="btn save hide">Save</button>
+            <a href="" class="btn download hide">download</a>
+        </div>
+    </div>
+
+
+
+    <script src="js/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+    <script src="js/croper.js"></script>
+    <script>
+
+
+
+
+        
+    </script>
+
+</body>
+
+</html>
