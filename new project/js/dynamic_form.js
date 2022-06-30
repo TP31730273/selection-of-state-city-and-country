@@ -2,42 +2,96 @@ class ElementGenerator{
     constructor(){
 
     }
-    with_attr_element(elm,attrs){
+
+    with_attr_element(elm,obj){
+        
         for (const key in obj) {
             if (obj[key].length>=2) {
+                
                 obj[key].forEach(element => {
                     if (key==='class') {
                         elm.classList.add(element)
                     }
-                    if (key === 'name') {
+                    if (key === 'inner_text') {
                         console.log(obj[key][0]);
                         elm.innerText=obj[key][0];
                     }
                 });
             }else{
+                // console.log(key,obj[key][0]);
+                
                 if (key==='class') {
-                    elm.classList.add(element)
+                    console.log(elm);
+                    elm.classList.add(obj[key][0])
                 }
-                if (key === 'name') {
+                if (key === 'inner_text') {
                     console.log(obj[key][0]);
                     elm.innerText=obj[key][0];
                 }else{
-
+                    
                     elm.setAttribute(key,obj[key][0]);
                 }
             }
         }
         return elm;
     }
+    create_element(obj,type){
+        console.log("dddddd");
+        var element = this.with_attr_element(document.createElement(type),obj) ;
+        return element;
+    }
     form(...args){
 
+//  Example object(arguments)  :-
+        //    var obj={
+        //     id:['tushar'],
+        //     class:['ravi','rajan'],
+        //     action:'submit',
+        //     method:['get/post'],
+        // ..another_attr:['name_of_attr']
+
+        // }
+        return this.create_element(args[0],'form')
+    }
+
+    label(...args){
+//  Example object(arguments)  :-
+        //    var obj={
+        //     id:['tushar'],
+        //     class:['ravi','rajan'],
+        //     type:'submit',
+        //     name:['My button'],
+        // ..another_attr:['name_of_attr']
+
+        // }
+        return this.create_element(args[0],'label')
     }
     input(...args){
-        
+        //  Example object(arguments)  :-
+        //    var obj={
+        //     id:['tushar'],
+        //     class:['ravi','rajan'],
+        //     type:'submit',
+        //     name:['My button'],
+        // ..another_attr:['name_of_attr']
+
+        // }
+        return this.create_element(args[0],'input')
     }
     button(...args){
+         //  Example object(arguments)  :-
+        //    var obj={
+        //     type:['button'],
+        //     id:['tushar'],
+        //     class:['ravi','rajan'],
+        //     type:'submit',
+        //     name:['My button'],
+        // ..another_attr:['name_of_attr']
 
+        // }
+        return this.create_element(args[0],'button')
     }
+
     a_tag(...args){
         //  Example object(arguments)  :-
         // var obj={
@@ -45,30 +99,47 @@ class ElementGenerator{
         //     class:['ravi','rajan'],
         //     href:['https://www.w3schools.com/js/'],
         //     name:['My Link'],
-        //     target:['__blank']
-        
+        // ..another_attr:['name_of_attr']
+
         // }
-        var obj=args[0];
-        var a = this.with_attr_element(document.createElement('a'),obj) ;
-        return a;
+        return this.create_element(args[0],'a')
     }
+
     div(...args){
+// example object for div
+    // id:['tushar'],
+    // class:['ravi','rajan',"btn","margin","btn-primary"],
+    // name:['My Link'],
+        // ..another_attr:['name_of_attr']
+    // }
+    
+    return this.create_element(args[0],'div')
+
 
     }
     span(...args){
+    //  example object for span
+        // id:['tushar'],
+        // class:['ravi','rajan',"btn","margin","btn-primary"],
+        // name:['My Link'],
+        // ..another_attr:['name_of_attr']
+        return this.create_element(args[0],'span')
 
     }
 
 }
 
-const p= new ElementGenerator();
-var obj={
-    id:['tushar'],
-    class:['ravi','rajan'],
-    href:['https://www.w3schools.com/js/'],
-    name:['My Link'],
-    target:['__blank']
+// const p= new ElementGenerator();
+// var obj={
+//     action:['/www.google.com'],
+//     id:['tushar'],
+//     class:['ravi','rajan',"btn","margin","btn-primary"],
+//     name:['My Link'],
+//     inner_text:['xyz'],
+//     method:["post"],
 
-}
-document.getElementById('dd').append(p.a_tag(obj))
+// }
+// console.log(p.button(obj))
+// document.getElementById('dd').append(p.form(obj))
+
 
