@@ -3,10 +3,21 @@ var section=document.getElementById('virtual_dom');
 var virtual_container=document.getElementById('virtual_container');
 var model_body=$('.modal-body');
 var exampleModalLongTitle=$('#exampleModalLongTitle');
+var select_elements=$('#select_elements');
+function reset_form() {
+    section.innerHTML='';
+}
 
 function add_form() {
-    var form=element_object.form({action:['#']})
+    reset_form();
+  
+    $('#select_elements').removeAttr('hidden');
+    select_elements.removeAttr('hiden');
+    var form=element_object.form({action:['#'],id:['new_added_form']})
     section.append(form);
+    $( "#new_added_form" ).sortable({
+        appendTo: document.body
+      });
 }
 
 function input_form(obj_arr,elm_name) {
@@ -19,51 +30,108 @@ function input_form(obj_arr,elm_name) {
 
 function show_model(arr,elm_name) {
     input_form(arr,elm_name);
+    $('#save_data').attr('name',elm_name);
     $('#exampleModalCenter').modal('show');
 }
+function clear_model_body() {
+    model_body.empty();
+    $('#exampleModalCenter').modal('hide')
+}
 function hide_model(){
+    clear_model_body();
     $('#exampleModalCenter').modal('hide')
 }
 
-function add_elms(e) {
-    var value_Arr=[]
-    var elm_list=model_body.find('input');
-    for (let index = 0; index < elm_list.length; index++) {
-       value_Arr.push([elm_list[index].name,elm_list[index].value]); 
-    }
-    console.log(value_Arr);
-    // var span=element_object.span({class:['badge','badge-primary','p-2']})
+function array2object(object,value_Arr) {
+    value_Arr.forEach(element => {
+        object[element[0]]=[element[1]];
+    });
+    return object;
+}
 
-    // var i=document.createElement('i');
-    // i.classList.add('bi')
-    // i.classList.add('bi-x')
-    // i.classList.add('ml-11')
-    // span.append(`${elm_name}`)
-    // span.append(i)
-    // virtual_container.append(span);
+function add_elms(e) {
+    var form_group_div=element_object.div({class:['form-group','app-sortable-handle']})
+    form_group_div.style="position:relative;background-color: rgb(236, 236, 236);width:50%;padding-top:10px;padding-bottom:10px;margin-top:15px;"
+    var value_Arr=[]
+    var object=new Object();
+    var element_name=e.name;
+    var elm_list=model_body.find('input');
+    var main_section=$('#virtual_dom').find('form');
+    var create_icon=document.createElement("i")
+    create_icon.classList.add('bi','bi-x-circle-fill','delete_element')
+    create_icon.style="right:0px;position:absolute;"
+    for (let index = 0; index < elm_list.length; index++) {
+       value_Arr.push([elm_list[index].placeholder,elm_list[index].value]); 
+    }
+    var created_element=null;
+    if (element_name==='label') {
+        form_group_div.append(element_object.label(array2object(object,value_Arr)))
+        form_group_div.append(create_icon)
+        created_element=form_group_div
+
+    }else if (element_name==='input') {
+        form_group_div.append(element_object.input(array2object(object,value_Arr)))
+        form_group_div.append(create_icon)
+        created_element=form_group_div;
+
+    }else if (element_name==='button') {
+        
+        var btn=element_object.button(array2object(object,value_Arr));
+        btn.classList.add('btn','btn-primary')
+        form_group_div.append(btn)
+        form_group_div.append(create_icon)
+
+        created_element=form_group_div
+        
+
+    }else{
+        form_group_div.append(element_object.a(array2object(object,value_Arr)))
+        form_group_div.append(create_icon)
+
+        created_element=form_group_div
+    }
+    
+    if (main_section.length>0) {
+        main_section[0].append(created_element);
+    }else{
+        section.append(created_element);
+    }
+    
+
+    hide_model();
 }
 
 
 function add_label(e) {
     exampleModalLongTitle.html(`Please fill below details for your ${e}`)
-    var obj_aarr=['name']
+    var obj_aarr=['inner_text']
   show_model(obj_aarr,e);
     
 }
 
 function add_input(e) {
-    show_model();
+    exampleModalLongTitle.html(`Please fill below details for your ${e}`)
+    var obj_aarr=['type','name','placeholder'   ,'id']
+    show_model(obj_aarr,e);
     
 }
 
 function add_anchor_tag(e) {
-    show_model();
+    exampleModalLongTitle.html(`Please fill below details for your ${e}`)
+    var obj_aarr=['href','inner_text','id']
+    show_model(obj_aarr,e);
     
 }
 
-function add_button(params) {
-    show_model();
-    
+function add_button(e) {
+    exampleModalLongTitle.html(`Please fill below details for your ${e}`)
+    var obj_aarr=['type','inner_text','id']
+    show_model(obj_aarr,e);
 }
 // var elm_selector=$('#select_elements');
 
+// $(document).
+
+
+
+// bi bi-arrow-down-up

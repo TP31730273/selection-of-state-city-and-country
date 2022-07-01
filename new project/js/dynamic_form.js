@@ -13,19 +13,18 @@ class ElementGenerator{
                         elm.classList.add(element)
                     }
                     if (key === 'inner_text') {
-                        console.log(obj[key][0]);
+                       
                         elm.innerText=obj[key][0];
                     }
                 });
             }else{
-                // console.log(key,obj[key][0]);
+                
                 
                 if (key==='class') {
-                    console.log(elm);
                     elm.classList.add(obj[key][0])
                 }
                 if (key === 'inner_text') {
-                    console.log(obj[key][0]);
+                   
                     elm.innerText=obj[key][0];
                 }else{
                     
@@ -36,7 +35,7 @@ class ElementGenerator{
         return elm;
     }
     create_element(obj,type){
-        console.log("dddddd");
+       
         var element = this.with_attr_element(document.createElement(type),obj) ;
         return element;
     }
@@ -92,7 +91,7 @@ class ElementGenerator{
         return this.create_element(args[0],'button')
     }
 
-    a_tag(...args){
+    a(...args){
         //  Example object(arguments)  :-
         // var obj={
         //     id:['tushar'],
@@ -139,7 +138,7 @@ class ElementGenerator{
 //     method:["post"],
 
 // }
-// console.log(p.button(obj))
+//  (p.button(obj))
 // document.getElementById('dd').append(p.form(obj))
 
 

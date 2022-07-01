@@ -1,54 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="css/dynamic_form.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bundle.css">
+  <link rel="stylesheet" href="css/dynamic_form.css">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- JavaScript Bundle with Popper -->
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"
+    integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 
-    <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
 
 
-    <title>Document</title>
+
+
+
+  <title>Document</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <select class="form-select" aria-label="Default select example" id="select_type">
-                <option value="DEFAULT" selected disabled>Select the element you want to create</option>
-                <option value="2" onclick="add_form()">Form</option>
-                <option value="3">Elements</option>
-        
-              </select>
-          </div>
-          
-          <div class="col-sm">
-            <select class="form-select" aria-label="Default select example" id="select_elements">
-                <option value="label" onclick="add_label(this.value)">label</option>
-                <option value="input" onclick="add_input(this.value)">input</option>
-                <option value="anchor_tag" onclick="add_anchor_tag(this.value)">anchor</option>
-                <option value="button" onclick="add_button(this.value)">button</option>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <select class="form-select" aria-label="Default select example" id="select_type">
+          <option value="DEFAULT" selected disabled>Select the element you want to create</option>
+          <option value="2" onclick="add_form()">Form</option>
+          <option value="3" id="elements">Only Elements</option>
+
+        </select>
+      </div>
+
+      <div class="col-sm">
+        <select class="form-select" aria-label="Default select example" id="select_elements" hidden>
+          <option value="label" onclick="add_label(this.value)">label</option>
+          <option value="input" onclick="add_input(this.value)">input</option>
+          <option value="a" onclick="add_anchor_tag(this.value)">anchor</option>
+          <option value="button" onclick="add_button(this.value)">button</option>
 
 
-            </select>
-          </div>
-        </div>
+        </select>
+      </div>
+      <div class="col-sm">
+        <button class="btn btn-primary" id="reset_form" onclick="reset_form()">Reset form</button>
+      </div>
     </div>
+  </div>
 
-
-    <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -58,27 +69,46 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" onclick="clear_model_body()"
+            data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="save_data" onclick="add_elms(this)">Save changes</button>
         </div>
       </div>
     </div>
   </div>
-    <section id="virtual_dom">
-        
-        <div id="virtual_container">
-            
-        </div>
-    </section>
+  <section id="virtual_dom">
+
+    
+  </section>
 
 
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="js/dynamic_form.js"></script>
+  <script src="js/elements.js"></script>
+  <script>
+    $(document).on('click', '.delete_element', function (params) {
+      $(this).parent().remove();
+    })
+    
 
-   
+    $(document).on('click','#elements',function (params) {
+      $('#select_elements').removeAttr('hidden');
+      select_elements.removeAttr('hiden');
+      reset_form();
+    })
+  </script>
+  <script>
+      // $("#virtual_dom").sortable();
+      $( "#virtual_dom" ).sortable({
+  appendTo: document.body
+});
 
-    <script src="js/dynamic_form.js"></script>
-    <script src="js/elements.js"></script>
 
-    <!-- <script src="js/encrypted_dynamic_form.js"></script> -->
+  </script>
+  <!-- <script src="js/encrypted_dynamic_form.js"></script> -->
 
 </body>
+
 </html>
+
+
