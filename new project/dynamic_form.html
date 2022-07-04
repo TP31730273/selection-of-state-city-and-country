@@ -47,7 +47,10 @@
           <option value="label" onclick="add_label(this.value)">label</option>
           <option value="input" onclick="add_input(this.value)">input</option>
           <option value="a" onclick="add_anchor_tag(this.value)">anchor</option>
+          <option value="radio" onclick="add_radio(this.value)">radio</option>
           <option value="button" onclick="add_button(this.value)">button</option>
+          <option value="select" onclick="add_select(this.value)">selection element</option>
+
 
 
         </select>
@@ -103,6 +106,15 @@
   appendTo: document.body
 });
 
+// while body will change
+//   $(document).on('change','body',(e)=>{
+//   console.log("this div is changed",e.target);
+// })
+// })
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
   </script>
   <!-- <script src="js/encrypted_dynamic_form.js"></script> -->
@@ -110,5 +122,4 @@
 </body>
 
 </html>
-
 

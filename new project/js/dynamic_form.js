@@ -27,18 +27,20 @@ class ElementGenerator{
                    
                     elm.innerText=obj[key][0];
                 }else{
-                    
+                    console.log(key);
                     elm.setAttribute(key,obj[key][0]);
                 }
             }
         }
         return elm;
     }
+
     create_element(obj,type){
-       
+    //    you can  create any elements using this method ...
         var element = this.with_attr_element(document.createElement(type),obj) ;
         return element;
     }
+
     form(...args){
 
 //  Example object(arguments)  :-
@@ -65,6 +67,7 @@ class ElementGenerator{
         // }
         return this.create_element(args[0],'label')
     }
+
     input(...args){
         //  Example object(arguments)  :-
         //    var obj={
@@ -77,6 +80,7 @@ class ElementGenerator{
         // }
         return this.create_element(args[0],'input')
     }
+
     button(...args){
          //  Example object(arguments)  :-
         //    var obj={
@@ -116,6 +120,7 @@ class ElementGenerator{
 
 
     }
+
     span(...args){
     //  example object for span
         // id:['tushar'],
@@ -130,15 +135,13 @@ class ElementGenerator{
 
 // const p= new ElementGenerator();
 // var obj={
-//     action:['/www.google.com'],
 //     id:['tushar'],
 //     class:['ravi','rajan',"btn","margin","btn-primary"],
 //     name:['My Link'],
 //     inner_text:['xyz'],
-//     method:["post"],
 
 // }
-//  (p.button(obj))
-// document.getElementById('dd').append(p.form(obj))
+//  console.log(p.create_element(obj,'radio'))
+
 
 
