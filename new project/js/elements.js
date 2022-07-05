@@ -20,28 +20,52 @@ function add_form() {
       });
 }
 
-function input_form(obj_arr,elm_name,value_Arr=null) {
+function input_form(obj_arr,elm_name,value_Arr=null,edit=false) {
     var data_toggle='data-toggle'
     var data_placement="data-placement"
-    obj_arr.forEach(element => {
+    if (edit === true) {
+        obj_arr.forEach(element => {
+    
+            if (element=='options') {
+                
+                var i=element_object.create_element({class:['bi','bi-plus-circle',element],style:['margin-left:4px;']},'i')
+                var input=element_object.span({id:[element],style:['background-color:white;color:black;'],inner_text:['click here to add options']})
+                input.append(i)
+                
+            }else if (value_Arr != null) {
+                
+                var input=element_object.input({type:['text'],name:[elm_name],data_placement:['right'],data_toggle:['tooltip'],title:[element],placeholder:[element],value:[value_Arr[obj_arr.indexOf(element)]]})
+                
+            }else{
+    
+                var input=element_object.input({type:['text'],name:[elm_name],placeholder:[element],data_placement:['right'],data_toggle:['tooltip'],title:[element]})
+            }
+            
+            
+            model_body.append(input)
+        });
+    }else{
 
-        if (element=='options') {
+        obj_arr.forEach(element => {
+    
+            if (element=='options') {
+                
+                var i=element_object.create_element({class:['bi','bi-plus-circle',element],style:['margin-left:4px;']},'i')
+                var input=element_object.span({id:[element],style:['background-color:white;color:black;'],inner_text:['click here to add options']})
+                input.append(i)
+            }else if (value_Arr != null) {
+                
+                var input=element_object.input({type:['text'],name:[elm_name],data_placement:['right'],data_toggle:['tooltip'],title:[element],placeholder:[element],value:[value_Arr[obj_arr.indexOf(element)]]})
+                
+            }else{
+    
+                var input=element_object.input({type:['text'],name:[elm_name],placeholder:[element],data_placement:['right'],data_toggle:['tooltip'],title:[element]})
+            }
             
-            var i=element_object.create_element({class:['bi','bi-plus-circle',element],style:['margin-left:4px;']},'i')
-            var input=element_object.span({id:[element],style:['background-color:white;color:black;'],inner_text:['click here to add options']})
-            input.append(i)
-        }else if (value_Arr != null) {
             
-            var input=element_object.input({type:['text'],name:[elm_name],data_placement:['right'],data_toggle:['tooltip'],title:[element],placeholder:[element],value:[value_Arr[obj_arr.indexOf(element)]]})
-            
-        }else{
-
-            var input=element_object.input({type:['text'],name:[elm_name],placeholder:[element],data_placement:['right'],data_toggle:['tooltip'],title:[element]})
-        }
-        
-        
-        model_body.append(input)
-    });
+            model_body.append(input)
+        });
+    }
 }
 
 function add_options(elemt) {
@@ -219,8 +243,17 @@ function edit_element(e) {
     obj_aarr.forEach(element => {
         val_aray.push($(tag).attr(element));
     });
-    
+    if (tag.localName=='select') {
+        var option_arr=[];
+        for (const iterator of tag.options) {
+            option_arr.push(iterator.value)
+        }
+        console.log(option_arr,"))))))))))))))0");
+    }
+    obj_aarr.push('options')
+    val_aray.push(option_arr)
     console.log(val_aray,"val_aray");
-    console.log($('.modal-footer'));
-    // show_model(obj_aarr,tag.name,val_aray,true,tag);
+    console.log(obj_aarr,"obj_aarr");
+
+    show_model(obj_aarr,tag.name,val_aray,true,tag);
 }
