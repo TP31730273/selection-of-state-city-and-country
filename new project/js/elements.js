@@ -49,23 +49,28 @@ function add_options(elemt) {
     elemt.append(input);
     
 }
-function show_model(arr,elm_name,value_array=null,edit=false) {
+function show_model(arr,elm_name,value_array=null,edit=false,tag=null) {
+    
         if (edit != false) {
             input_form(arr,elm_name,value_array);
-            
+            $('#save_data').attr('data-target',tag.id)
+            $('#save_data').attr('name',tag.localName);
         }else{
-
             input_form(arr,elm_name);
+            $('#save_data').attr('name',elm_name);
         }
-        $('#save_data').attr('name',elm_name);
+        $('#save_data').attr('onclick',"add_elms(this)")
+        // $('#save_data').attr('onclick',"edit_elm(this)")
         $('#exampleModalCenter').modal('show');
 
     
 }
 function clear_model_body() {
     model_body.empty();
+    $('#save_data').removeAttr('data-target')
     $('#exampleModalCenter').modal('hide')
 }
+
 function hide_model(){
     clear_model_body();
     $('#exampleModalCenter').modal('hide')
@@ -84,67 +89,49 @@ function array2object(object,value_Arr) {
     return [object,elm_ar];
 }
 
-function add_elms(e) {
+
+function form_group(element_name) {
     var form_group_div=element_object.div({class:['form-group','app-sortable-handle','div_style']})
-    var value_Arr=[]
-    var created_element=null;
-    var object=new Object();
-    var element_name=e.name;
+    var value_Arr=[];
     var elm_list=model_body.find('input');
-    var main_section=$('#virtual_dom').find('form');
+    var object=new Object();
     var create_icon=element_object.create_element({class:['bi','bi-x-circle-fill','delete_element'],style:["right:-7px;position:absolute;top:-10px;border-radius: 13px;"]},'i')
-
     var edit_icon=element_object.create_element({class:['bi','bi-pencil-square','edit-icon'],style:['right:-7px;position:absolute;bottom:-4px;'],onclick:['edit_element(this);']},'i')
+    
     for (let index = 0; index < elm_list.length; index++) {
-       value_Arr.push([elm_list[index].placeholder,elm_list[index].value]); 
-    }
-    if (element_name==='label') {
-        console.log(array2object(object,value_Arr)[0],value_Arr);
-        form_group_div.append(element_object.label(array2object(object,value_Arr)[0]))
-        form_group_div.append(create_icon)
-        form_group_div.append(edit_icon)
+        value_Arr.push([elm_list[index].placeholder,elm_list[index].value]); 
+     }
+     if (element_name==='button') {
+        form_group_div.append(element_object.create_element({...array2object(object,value_Arr)[0],...{class:['btn','btn-primary']}},element_name),create_icon,edit_icon)
+        return form_group_div;
 
-        created_element=form_group_div
-
-    }else if (element_name==='input' || element_name ==='radio') {
-        form_group_div.append(element_object.input(array2object(object,value_Arr)[0]))
-        form_group_div.append(create_icon)
-        form_group_div.append(edit_icon)
-
-        created_element=form_group_div;
-
-    }else if (element_name==='button') {
-        
-        var btn=element_object.button(array2object(object,value_Arr)[0]);
-        btn.classList.add('btn','btn-primary')
-        form_group_div.append(btn)
-        form_group_div.append(create_icon)
-        form_group_div.append(edit_icon)
-
-
-        created_element=form_group_div
-        
-
-    }else if (element_name==='select') {
+     }else if (element_name==='select') {
+        var select=element_object.create_element(array2object(object,value_Arr)[0],element_name);
         var obj_select=array2object(object,value_Arr)
-        var select=element_object.create_element(obj_select[0],'select');
         obj_select[1].forEach(element => {
             select.append(element_object.create_element({value:[element],inner_text:[element]},'option'))
         });
-        form_group_div.append(select)
-        form_group_div.append(create_icon)
-        form_group_div.append(edit_icon)
+        form_group_div.append(select,create_icon,edit_icon)
+        return form_group_div;
+     }
+     form_group_div.append(element_object.create_element(array2object(object,value_Arr)[0],element_name),create_icon,edit_icon)
+     return form_group_div;
+   
 
-        created_element=form_group_div;
+}
+function add_elms(e) {
+    var flag=e.hasAttribute('data-target');
+    console.log(flag,"*(*(*(");
+    var created_element=null;
+    var element_name=e.name;
+    var main_section=$('#virtual_dom').find('form');
+
+   if (flag === true) {
     
-    }
-    else{
-        form_group_div.append(element_object.a(array2object(object,value_Arr)[0]))
-        form_group_div.append(create_icon)
-        form_group_div.append(edit_icon)
 
-        created_element=form_group_div
-    }
+   }else{
+
+    created_element=form_group(element_name)
     
     if (main_section.length>0) {
         main_section[0].append(created_element);
@@ -152,6 +139,9 @@ function add_elms(e) {
     }else{
         section.append(created_element);
     }
+
+   }
+    
     
     hide_model();
 }
@@ -202,16 +192,35 @@ $(document).on('click','.options',function(params) {
 
 })
 
+function edit_elm(e) {
+    var data_target=$(e).attr('data-target');
+    var tag_type=e.name;
+    var obj=new Object();
+    var input_obj_list=$('#save_data').parent().siblings('.modal-body').find('input');
+    for (const iterator of input_obj_list) {
+        obj[iterator.placeholder]=[iterator.value];
+        console.log(iterator.value);
+    }
+    var target_element=$(`#${data_target}`)
+    var parent_elm=target_element.parent()[0]
+    target_element[0].remove()
+    var new_elm=element_object.create_element(obj,tag_type)
+    parent_elm.prepend(new_elm)
+    
+
+}
+
 function edit_element(e) {
     var tag=e.parentElement.firstChild;
+    console.log(tag);
     var obj_aarr=tag.getAttributeNames()
     var val_aray=[];
-    var value=
     console.log(obj_aarr,"obj_aarr");
     obj_aarr.forEach(element => {
         val_aray.push($(tag).attr(element));
     });
+    
     console.log(val_aray,"val_aray");
     console.log($('.modal-footer'));
-    show_model(obj_aarr,tag.name,val_aray,true);
+    // show_model(obj_aarr,tag.name,val_aray,true,tag);
 }

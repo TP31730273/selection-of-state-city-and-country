@@ -27,7 +27,6 @@ class ElementGenerator{
                    
                     elm.innerText=obj[key][0];
                 }else{
-                    console.log(key);
                     elm.setAttribute(key,obj[key][0]);
                 }
             }
@@ -36,11 +35,15 @@ class ElementGenerator{
     }
 
     create_element(obj,type){
-    //    you can  create any elements using this method ...
-        var element = this.with_attr_element(document.createElement(type),obj) ;
+
+        var element = this.with_attr_element(document.createElement(type),obj);
+
+        
         return element;
     }
-
+    edit_element(element,edited_val_array){
+        return element;
+    }
     form(...args){
 
 //  Example object(arguments)  :-
