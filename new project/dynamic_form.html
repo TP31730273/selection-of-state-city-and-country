@@ -49,6 +49,7 @@
         <select class="form-select" aria-label="Default select example" id="select_elements" hidden>
           <option value="label" onclick="add_label(this.value)">label</option>
           <option value="input" onclick="add_input(this.value)">input</option>
+          <option value="textarea" onclick="add_textarea(this.value)">textarea</option>
           <option value="a" onclick="add_anchor_tag(this.value)">anchor</option>
           <option value="radio" onclick="add_radio(this.value)">radio</option>
           <option value="button" onclick="add_button(this.value)">button</option>
@@ -58,10 +59,13 @@
 
         </select>
       </div>
+      <div class="col-sm">
+        <button class="btn btn-primary" id="add_action" onclick="add_acton()" style="display: none;">Add Action</button>
+      </div>
     </div>
   </div>
 
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  <div class="modal fade" data-bs-backdrop="static"  id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">

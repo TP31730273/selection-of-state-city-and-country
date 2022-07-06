@@ -37,8 +37,15 @@ class ElementGenerator{
     create_element(obj,type){
 
         var element = this.with_attr_element(document.createElement(type),obj);
-
-        
+        if (type==='select') {
+            if (obj['options']) {
+                obj['options'].forEach(element2 => {
+                    var option=this.create_element({value:[element2],inner_text:[element2]},'option')
+                    element.append(option)
+                });
+            }
+            return element;
+        }
         return element;
     }
     edit_element(element,edited_val_array){

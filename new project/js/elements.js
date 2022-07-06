@@ -6,11 +6,31 @@ var exampleModalLongTitle=$('#exampleModalLongTitle');
 var select_elements=$('#select_elements');
 function reset_form() {
     section.innerHTML='';
+    clear_model_body();
 }
-
+$(document).on('click','#elements',function() {
+    
+    $('#add_action').hide();
+})
+function add_acton(){
+    exampleModalLongTitle.html(`Please fill below details for your action to form`)
+   var input_link=element_object.input({id:['action'],placeholder:["enter your action url"]})
+   var input_method=element_object.input({id:['method'],placeholder:["enter your method"]})
+    model_body.append(input_link,input_method)
+    $('#save_data').attr('onclick','save_action(this)')
+    $('#exampleModalCenter').modal('show');
+}
+function save_action(e) {
+    for(it of $('#save_data').parent().siblings().find('input'))
+  {
+    $('#new_added_form').attr(it.id,it.value)
+  }
+  $('#save_data').removeAttr('onclick');
+  hide_model();
+}
 function add_form() {
     reset_form();
-  
+    $('#add_action').show();
     $('#select_elements').removeAttr('hidden');
     select_elements.removeAttr('hiden');
     var form=element_object.form({action:['#'],id:['new_added_form']})
@@ -25,12 +45,17 @@ function input_form(obj_arr,elm_name,value_Arr=null,edit=false) {
     var data_placement="data-placement"
     if (edit === true) {
         obj_arr.forEach(element => {
-    
+            
             if (element=='options') {
                 
+                console.log(element,"&*&&&&&&&&&&&&&&&");
                 var i=element_object.create_element({class:['bi','bi-plus-circle',element],style:['margin-left:4px;']},'i')
                 var input=element_object.span({id:[element],style:['background-color:white;color:black;'],inner_text:['click here to add options']})
                 input.append(i)
+                value_Arr[obj_arr.indexOf(element)].forEach(element1 => {
+                    var input=element_object.input({type:['text'],name:['option'],placeholder:["option"],value:[element1]})
+                    model_body.append(input);
+                });
                 
             }else if (value_Arr != null) {
                 
@@ -76,7 +101,7 @@ function add_options(elemt) {
 function show_model(arr,elm_name,value_array=null,edit=false,tag=null) {
     
         if (edit != false) {
-            input_form(arr,elm_name,value_array);
+            input_form(arr,elm_name,value_array,true);
             $('#save_data').attr('data-target',tag.id)
             $('#save_data').attr('name',tag.localName);
         }else{
@@ -130,11 +155,8 @@ function form_group(element_name) {
         return form_group_div;
 
      }else if (element_name==='select') {
-        var select=element_object.create_element(array2object(object,value_Arr)[0],element_name);
-        var obj_select=array2object(object,value_Arr)
-        obj_select[1].forEach(element => {
-            select.append(element_object.create_element({value:[element],inner_text:[element]},'option'))
-        });
+         var obj_select=array2object(object,value_Arr)
+         var select=element_object.create_element({...obj_select[0],...{options:obj_select[1]}},element_name);
         form_group_div.append(select,create_icon,edit_icon)
         return form_group_div;
      }
@@ -145,14 +167,13 @@ function form_group(element_name) {
 }
 function add_elms(e) {
     var flag=e.hasAttribute('data-target');
-    console.log(flag,"*(*(*(");
+    
     var created_element=null;
     var element_name=e.name;
     var main_section=$('#virtual_dom').find('form');
 
    if (flag === true) {
-    
-
+    edit_elm(e);
    }else{
 
     created_element=form_group(element_name)
@@ -173,7 +194,7 @@ function add_elms(e) {
 
 function add_label(e) {
     exampleModalLongTitle.html(`Please fill below details for your ${e}`)
-    var obj_aarr=['inner_text']
+    var obj_aarr=['id','inner_text']
   show_model(obj_aarr,e);
   
 }
@@ -211,6 +232,11 @@ function add_select(e) {
     show_model(obj_aarr,e);
 }
 
+function add_textarea(e) {
+    exampleModalLongTitle.html(`Please fill below details for your ${e}`)
+    var obj_aarr=['id','name',"placeholder"]
+    show_model(obj_aarr,e);
+}
 $(document).on('click','.options',function(params) {
     add_options($(this).parent().parent()[0]);
 
@@ -219,14 +245,26 @@ $(document).on('click','.options',function(params) {
 function edit_elm(e) {
     var data_target=$(e).attr('data-target');
     var tag_type=e.name;
+    var option_arr=[];
     var obj=new Object();
     var input_obj_list=$('#save_data').parent().siblings('.modal-body').find('input');
+    
     for (const iterator of input_obj_list) {
-        obj[iterator.placeholder]=[iterator.value];
-        console.log(iterator.value);
+        if (iterator.name ==='option') {
+            option_arr.push(iterator.value);
+            
+        }else{
+
+            obj[iterator.placeholder]=[iterator.value];
+        }
+    }
+    console.log(option_arr,"option_arroption_arroption_arroption_arr");
+    if (option_arr.length!=0) {
+        obj['options']=option_arr;
     }
     var target_element=$(`#${data_target}`)
     var parent_elm=target_element.parent()[0]
+    
     target_element[0].remove()
     var new_elm=element_object.create_element(obj,tag_type)
     parent_elm.prepend(new_elm)
@@ -239,7 +277,6 @@ function edit_element(e) {
     console.log(tag);
     var obj_aarr=tag.getAttributeNames()
     var val_aray=[];
-    console.log(obj_aarr,"obj_aarr");
     obj_aarr.forEach(element => {
         val_aray.push($(tag).attr(element));
     });
@@ -248,12 +285,18 @@ function edit_element(e) {
         for (const iterator of tag.options) {
             option_arr.push(iterator.value)
         }
-        console.log(option_arr,"))))))))))))))0");
+        obj_aarr.push('options')
+        val_aray.push(option_arr)
     }
-    obj_aarr.push('options')
-    val_aray.push(option_arr)
-    console.log(val_aray,"val_aray");
-    console.log(obj_aarr,"obj_aarr");
-
+    if (tag.innerText !='') {
+        val_aray.push(tag.innerText)
+        obj_aarr.push('inner_text')
+    }
+   
     show_model(obj_aarr,tag.name,val_aray,true,tag);
 }
+
+
+$(document).on('click','#reset_form',()=>{
+    location.reload()
+})
